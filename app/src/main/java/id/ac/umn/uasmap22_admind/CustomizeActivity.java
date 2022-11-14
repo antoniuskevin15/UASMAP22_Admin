@@ -20,8 +20,6 @@ public class CustomizeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 out();
-                Intent intentHome = new Intent(CustomizeActivity.this, HomeActivity.class);
-                startActivity(intentHome);
             }
         });
     }

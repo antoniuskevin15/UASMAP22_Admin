@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/UMN/Project/UASMAP22_Admin/app/src/main/res/drawable/ic_backbutton.xml" value="0.1" />
+        <entry key="..\:/UMN/Project/UASMAP22_Admin/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.2345" />
         <entry key="..\:/UMN/Project/UASMAP22_Admin/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.12" />
         <entry key="..\:/UMN/Project/UASMAP22_Admin/app/src/main/res/drawable/ic_baseline_star_rate_24.xml" value="0.12" />
         <entry key="..\:/UMN/Project/UASMAP22_Admin/app/src/main/res/drawable/ic_outline_event_24.xml" value="0.12" />
@@ -13,6 +14,7 @@
         <entry key="..\:/UMN/Project/UASMAP22_Admin/app/src/main/res/layout/activity_customize.xml" value="0.2" />
         <entry key="..\:/UMN/Project/UASMAP22_Admin/app/src/main/res/layout/activity_home.xml" value="0.264" />
         <entry key="..\:/UMN/Project/UASMAP22_Admin/app/src/main/res/layout/activity_main.xml" value="0.2484375" />
+        <entry key="..\:/UMN/Project/UASMAP22_Admin/app/src/main/res/layout/activity_profile.xml" value="0.2484375" />
         <entry key="..\:/UMN/Project/UASMAP22_Admin/app/src/main/res/layout/fragment_tabs2.xml" value="0.16799999999999998" />
         <entry key="..\:/UMN/Project/UASMAP22_Admin/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1195" />
       </map>
