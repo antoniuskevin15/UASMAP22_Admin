@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">UASMAP22_Admind</string>
+    <string name="app_name">RBPartner</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

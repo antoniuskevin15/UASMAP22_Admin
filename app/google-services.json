@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "256386889570",
+    "project_id": "rentbow-uas",
+    "storage_bucket": "rentbow-uas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256386889570:android:7a9fd5a778f451362bde3b",
+        "android_client_info": {
+          "package_name": "id.ac.umn.uasmap22_admind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256386889570-0tvfdd1k3f3rijp7fqs5tfkt5p629ng9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT1XLQQvEClwPm2wOZc5-sWr8Dlw3Zq8k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256386889570-0tvfdd1k3f3rijp7fqs5tfkt5p629ng9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

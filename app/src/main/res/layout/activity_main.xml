@@ -42,6 +42,7 @@
         android:background="@drawable/rounded_input"
         android:backgroundTint="@color/white"
         android:hint="Email"
+        android:inputType="textEmailAddress"
         android:padding="13dp"
         app:layout_constraintBottom_toTopOf="@+id/et_password"
         app:layout_constraintEnd_toEndOf="parent"

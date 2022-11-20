@@ -28,6 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="color" value="c9c9c9" />
                             <entry key="outputName" value="ic_outline_settings_24" />
                             <entry key="sourceFile" value="D:\UMN\Project\UASMAP22_Admin" />
                           </map>
