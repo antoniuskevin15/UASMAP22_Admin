@@ -90,7 +90,7 @@ public class ProfileFragment extends Fragment {
     public void getUser(String uid){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                db.collection("partner").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("partner").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -99,13 +99,13 @@ public class ProfileFragment extends Fragment {
                         Log.d("TAG", "DocumentSnapshot data: " + document.getString("name"));
 
                         TextView tv_nama = (TextView) getView().findViewById(R.id.profile_nama);
-                        tv_nama.setText(document.getString("name"));
+                        tv_nama.setText(document.getString("nama"));
 
                         TextView tv_alamat = (TextView) getView().findViewById(R.id.profile_alamat);
                         tv_alamat.setText(document.getString("alamat"));
 
                         TextView tv_type = (TextView) getView().findViewById(R.id.profile_type);
-                        tv_type.setText(": " + document.getString("type"));
+                        tv_type.setText(": " + document.getString("kategori"));
 
                         TextView tv_phone = (TextView) getView().findViewById(R.id.profile_phone);
                         tv_phone.setText(": " + document.getString("phone"));
@@ -118,13 +118,6 @@ public class ProfileFragment extends Fragment {
                 } else {
                     Log.d("TAG", "get failed with ", task.getException());
                 }
-            }
-        });
-
-        db.collection("partner").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-
             }
         });
     }

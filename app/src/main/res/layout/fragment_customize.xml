@@ -40,12 +40,13 @@
                         android:textStyle="bold" />
 
                     <EditText
+                        android:id="@+id/custom_et_jumlahLap"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
                         android:background="@drawable/rounded_input"
                         android:backgroundTint="@color/rose"
-                        android:text="3" />
+                        android:inputType="number" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -59,7 +60,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <EditText
-                            android:id="@+id/customize_lapangan"
+                            android:id="@+id/customize_lapangan1"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
                             android:layout_marginHorizontal="10dp"
@@ -69,20 +70,19 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/customize_harga"
+                            app:layout_constraintEnd_toStartOf="@id/customize_harga1"
                             android:text="Lap A" />
                         <EditText
-                            android:id="@+id/customize_harga"
+                            android:id="@+id/customize_harga1"
                             android:layout_width="200dp"
                             android:layout_height="50dp"
                             android:layout_marginHorizontal="10dp"
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/rounded_input"
                             android:backgroundTint="@color/rose"
-                            app:layout_constraintStart_toEndOf="@id/customize_lapangan"
+                            app:layout_constraintStart_toEndOf="@id/customize_lapangan1"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:text="Rp 80.000" />
+                            app:layout_constraintBottom_toBottomOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -110,8 +110,7 @@
                             android:backgroundTint="@color/rose"
                             app:layout_constraintStart_toEndOf="@id/customize_lapangan2"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:text="Rp 100.000" />
+                            app:layout_constraintBottom_toBottomOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -139,8 +138,7 @@
                             android:backgroundTint="@color/rose"
                             app:layout_constraintStart_toEndOf="@id/customize_lapangan3"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:text="Rp 75.000" />
+                            app:layout_constraintBottom_toBottomOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                     <TextView
                         android:layout_width="match_parent"
@@ -151,13 +149,13 @@
                         android:textColor="@color/black"
                         android:textStyle="bold" />
                     <EditText
+                        android:id="@+id/customize_hariBuka"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/rounded_input"
-                        android:backgroundTint="@color/rose"
-                        android:text="Senin"/>
+                        android:backgroundTint="@color/rose" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -167,14 +165,33 @@
                         android:text="Jam Buka"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
-                    <EditText
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/rounded_input"
-                        android:backgroundTint="@color/rose"
-                        android:text="08:00"/>
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="200dp"
+                            android:layout_height="50dp"
+                            android:id="@+id/in_time_open"
+                            android:textSize="18dp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:layout_marginStart="20dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SELECT TIME"
+                            android:id="@+id/btn_time_open"
+                            android:background="@drawable/rounded_button"
+                            android:backgroundTint="@color/secondary"
+                            android:textColor="@color/white"
+                            android:layout_alignBottom="@+id/in_time_open"
+                            android:layout_toRightOf="@+id/in_time_open" />
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -185,13 +202,13 @@
                         android:textColor="@color/black"
                         android:textStyle="bold" />
                     <EditText
+                        android:id="@+id/customize_hariTutup"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/rounded_input"
-                        android:backgroundTint="@color/rose"
-                        android:text="Jumat" />
+                        android:backgroundTint="@color/rose" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -201,16 +218,36 @@
                         android:text="Jam Tutup"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
-                    <EditText
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/rounded_input"
-                        android:backgroundTint="@color/rose"
-                        android:text="23:00" />
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="200dp"
+                            android:layout_height="50dp"
+                            android:id="@+id/in_time_close"
+                            android:textSize="18dp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:layout_marginStart="20dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SELECT TIME"
+                            android:id="@+id/btn_time_close"
+                            android:background="@drawable/rounded_button"
+                            android:backgroundTint="@color/secondary"
+                            android:textColor="@color/white"
+                            android:layout_alignBottom="@+id/in_time_close"
+                            android:layout_toRightOf="@+id/in_time_close" />
+                    </RelativeLayout>
 
                     <TextView
+                        android:id="@+id/customize_save"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"

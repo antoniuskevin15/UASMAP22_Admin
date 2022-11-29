@@ -6,9 +6,6 @@
     <item android:id="@+id/action_order"
         android:title="Order"
         android:icon="@drawable/order" />
-    <item android:id="@+id/action_notify"
-        android:title="Notify"
-        android:icon="@drawable/notify" />
     <item android:id="@+id/action_customize"
         android:title="Customize"
         android:icon="@drawable/ic_outline_settings_24" />

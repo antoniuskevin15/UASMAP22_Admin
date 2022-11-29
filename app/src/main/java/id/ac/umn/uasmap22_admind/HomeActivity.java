@@ -29,9 +29,6 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.action_customize:
                     replaceFragment(new CustomizeFragment());
                     break;
-                case R.id.action_notify:
-                    replaceFragment(new HomeFragment());
-                    break;
                 case R.id.action_order:
                     replaceFragment(new OrderFragment());
                     break;
