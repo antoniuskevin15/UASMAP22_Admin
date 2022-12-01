@@ -13,8 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -142,11 +145,35 @@ public class CustomizeFragment extends Fragment {
                            }
                         });
 
-                        EditText et_hariBuka = (EditText) getView().findViewById(R.id.customize_hariBuka);
-                        et_hariBuka.setText(document.getString("hariBuka"));
+                        Spinner spinner = getView().findViewById(R.id.customize_hariBuka);
+                        Spinner spinnerTutup = getView().findViewById(R.id.customize_hariTutup);
 
-                        EditText et_hariTutup = (EditText) getView().findViewById(R.id.customize_hariTutup);
-                        et_hariTutup.setText(document.getString("hariTutup"));
+                        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.hari_array, android.R.layout.simple_spinner_item);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner.setAdapter(adapter);
+                        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                String text = adapterView.getItemAtPosition(i).toString();
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
+                        spinnerTutup.setAdapter(adapter);
+                        spinnerTutup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                String text = adapterView.getItemAtPosition(i).toString();
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
 
                         Button btnTimeOpenPicker=(Button)getView().findViewById(R.id.btn_time_open);
                         Button btnTimeClosePicker=(Button) getView().findViewById(R.id.btn_time_close);
@@ -203,12 +230,12 @@ public class CustomizeFragment extends Fragment {
                             public void onClick(View view) {
                                 Map<String, Object> partner = new HashMap<>();
 //
-                                if(TextUtils.isEmpty(et_hariBuka.getText()) || TextUtils.isEmpty(et_hariTutup.getText()) || TextUtils.isEmpty(et_jamBuka.getText()) || TextUtils.isEmpty(et_jamTutup.getText())) {
+                                if(TextUtils.isEmpty(spinner.getSelectedItem().toString()) || TextUtils.isEmpty(spinnerTutup.getSelectedItem().toString()) || TextUtils.isEmpty(et_jamBuka.getText()) || TextUtils.isEmpty(et_jamTutup.getText())) {
                                     Toast.makeText(getContext(), "Masih ada imput yang kosong!!", Toast.LENGTH_SHORT).show();
                                 }else{
-                                    partner.put("hariBuka", et_hariBuka.getText().toString());
+                                    partner.put("hariBuka", spinner.getSelectedItem().toString());
                                     partner.put("jamBuka", et_jamBuka.getText().toString());
-                                    partner.put("hariTutup", et_hariTutup.getText().toString());
+                                    partner.put("hariTutup", spinnerTutup.getSelectedItem().toString());
                                     partner.put("jamTutup", et_jamTutup.getText().toString());
                                     partner.put("alamat", document.getString("alamat"));
                                     partner.put("fasilitas", document.getString("fasilitas"));

@@ -69,14 +69,14 @@
                         android:text="Hari Buka"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
-                    <EditText
+                    <Spinner
                         android:id="@+id/customize_hariBuka"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/rounded_input"
-                        android:backgroundTint="@color/rose" />
+                        android:backgroundTint="@color/rose"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -122,14 +122,14 @@
                         android:text="Hari Tutup"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
-                    <EditText
+                    <Spinner
                         android:id="@+id/customize_hariTutup"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/rounded_input"
-                        android:backgroundTint="@color/rose" />
+                        android:backgroundTint="@color/rose"/>
 
                     <TextView
                         android:layout_width="match_parent"
