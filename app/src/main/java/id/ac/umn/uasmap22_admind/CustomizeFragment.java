@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -31,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -97,6 +100,10 @@ public class CustomizeFragment extends Fragment {
     }
 
     private int mHour, mMinute;
+    private final LinkedList<Ruangan> mRuangan = new LinkedList<>();
+    private RecyclerView mRecyclerView;
+    private RuanganAdapter mAdapter;
+
 
     public void getUser(String uid) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -124,21 +131,14 @@ public class CustomizeFragment extends Fragment {
 
                         ruangRef.get().addOnCompleteListener(datas -> {
                            if(datas.isSuccessful()){
-                               AtomicInteger id = new AtomicInteger(1);
                                datas.getResult().forEach(data -> {
-//                                   Log.d("ASDA", data.getString("nama"));
-//                                   Log.d("AShargaDA", data.get("harga").toString());
-//                                   String idCustom = "customize_lapangan"+id.getAndIncrement();
-//                                   int id_lap = getResources().getIdentifier("R.id." + idCustom, "id", "id.ac.umn.uasmap22_admind");
-//                                   EditText et_lap = (EditText) getView().findViewById(id_lap);
-//                                   Log.d("ASDA", idCustom);
-//                                   et_lap.setText(data.getString("nama"));
-//
-//                                   String idHarga = "customize_harga"+id.getAndIncrement();
-//                                   int id_harga = getResources().getIdentifier("R.id." + idHarga, "id", "id.ac.umn.uasmap22_admind");
-//                                   EditText et_harga = (EditText) getView().findViewById(id_harga);
-//                                   et_harga.setText(data.get("harga").toString());
+                                   mRuangan.add(new Ruangan(data.getString("nama"), Integer.valueOf(data.get("harga").toString())));
                                });
+
+                               mRecyclerView = (RecyclerView) getView().findViewById(R.id.recyclerview);
+                               mAdapter = new RuanganAdapter(getContext(), mRuangan);
+                               mRecyclerView.setAdapter(mAdapter);
+                               mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                            }
                         });
 
