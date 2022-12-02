@@ -55,7 +55,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.ruanganItemView.setText(ruangOrder);
         holder.dateItemView.setText(dateOrder);
         holder.timeItemView.setText(timeOrder);
-        holder.hargaItemView.setText(hargaOrder);
+        holder.hargaItemView.setText("Rp. "+hargaOrder);
         holder.userItemView.setText(userOrder.get("nama").toString());
     }
 

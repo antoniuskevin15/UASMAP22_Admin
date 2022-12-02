@@ -32,6 +32,9 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.action_order:
                     replaceFragment(new OrderFragment());
                     break;
+                case R.id.action_history:
+                    replaceFragment(new HistoryFragment());
+                    break;
                 case R.id.action_profile:
                     replaceFragment(new ProfileFragment());
                     break;
