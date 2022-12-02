@@ -175,8 +175,8 @@ public class CustomizeFragment extends Fragment {
                             }
                         });
 
-                        Button btnTimeOpenPicker=(Button)getView().findViewById(R.id.btn_time_open);
-                        Button btnTimeClosePicker=(Button) getView().findViewById(R.id.btn_time_close);
+                        TextView btnTimeOpenPicker=(TextView) getView().findViewById(R.id.in_time_open);
+                        TextView btnTimeClosePicker=(TextView) getView().findViewById(R.id.in_time_close);
                         TextView et_jamBuka=(TextView) getView().findViewById(R.id.in_time_open);
                         et_jamBuka.setText(document.getString("jamBuka"));
                         TextView et_jamTutup=(TextView) getView().findViewById(R.id.in_time_close);

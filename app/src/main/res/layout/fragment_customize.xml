@@ -66,52 +66,36 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="Hari Buka"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-                    <Spinner
-                        android:id="@+id/customize_hariBuka"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/rounded_input"
-                        android:backgroundTint="@color/rose"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Jam Buka"
+                        android:text="Waktu Buka"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+                        <Spinner
+                            android:id="@+id/customize_hariBuka"
+                            android:layout_width="150dp"
+                            android:layout_height="50dp"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/rounded_input"
+                            android:backgroundTint="@color/rose"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
                         <TextView
                             android:layout_width="200dp"
                             android:layout_height="50dp"
                             android:id="@+id/in_time_open"
-                            android:textSize="18dp"
+                            android:textSize="14dp"
                             android:gravity="center_vertical"
                             android:textColor="@color/black"
                             android:layout_marginStart="20dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="SELECT TIME"
-                            android:id="@+id/btn_time_open"
-                            android:background="@drawable/rounded_button"
-                            android:backgroundTint="@color/secondary"
-                            android:textColor="@color/white"
-                            android:layout_alignBottom="@+id/in_time_open"
-                            android:layout_toRightOf="@+id/in_time_open" />
+                            android:layout_alignBottom="@+id/customize_hariBuka"
+                            android:layout_toRightOf="@+id/customize_hariBuka"
+                            android:background="@drawable/rounded_input"
+                            android:backgroundTint="@color/rose" />
                     </RelativeLayout>
 
                     <TextView
@@ -119,52 +103,36 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="Hari Tutup"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-                    <Spinner
-                        android:id="@+id/customize_hariTutup"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/rounded_input"
-                        android:backgroundTint="@color/rose"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Jam Tutup"
+                        android:text="Waktu Tutup"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+                        <Spinner
+                            android:id="@+id/customize_hariTutup"
+                            android:layout_width="150dp"
+                            android:layout_height="50dp"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/rounded_input"
+                            android:backgroundTint="@color/rose"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
                         <TextView
                             android:layout_width="200dp"
                             android:layout_height="50dp"
                             android:id="@+id/in_time_close"
-                            android:textSize="18dp"
+                            android:textSize="14dp"
                             android:gravity="center_vertical"
                             android:textColor="@color/black"
                             android:layout_marginStart="20dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="SELECT TIME"
-                            android:id="@+id/btn_time_close"
-                            android:background="@drawable/rounded_button"
-                            android:backgroundTint="@color/secondary"
-                            android:textColor="@color/white"
-                            android:layout_alignBottom="@+id/in_time_close"
-                            android:layout_toRightOf="@+id/in_time_close" />
+                            android:layout_alignBottom="@+id/customize_hariTutup"
+                            android:layout_toRightOf="@+id/customize_hariTutup"
+                            android:background="@drawable/rounded_input"
+                            android:backgroundTint="@color/rose" />
                     </RelativeLayout>
 
                     <TextView

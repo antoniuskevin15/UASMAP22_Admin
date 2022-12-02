@@ -52,7 +52,7 @@ public class RuanganAdapter extends RecyclerView.Adapter<RuanganAdapter.RuanganV
         String namaRuangan = mCurrent.getNama();
         int hargaRuangan = mCurrent.getHarga();
         holder.namaItemView.setText(namaRuangan);
-        holder.hargaImageView.setText(String.valueOf(hargaRuangan));
+        holder.hargaItemView.setText(String.valueOf(hargaRuangan));
     }
 
     @Override
@@ -62,13 +62,13 @@ public class RuanganAdapter extends RecyclerView.Adapter<RuanganAdapter.RuanganV
 
     class RuanganViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public final EditText namaItemView;
-        public final EditText hargaImageView;
+        public final EditText hargaItemView;
         final RuanganAdapter mAdapter;
 
         public RuanganViewHolder(@NonNull View itemView, RuanganAdapter adapter,onItemClickListener listener) {
             super(itemView);
             namaItemView = itemView.findViewById(R.id.customize_ruangan);
-            hargaImageView = itemView.findViewById(R.id.customize_harga);
+            hargaItemView = itemView.findViewById(R.id.customize_harga);
             this.mAdapter = adapter;
             itemView.setOnClickListener(this);
         }
