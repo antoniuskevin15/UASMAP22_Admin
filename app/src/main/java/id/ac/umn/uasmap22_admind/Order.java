@@ -3,13 +3,15 @@ package id.ac.umn.uasmap22_admind;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 public class Order {
-    private DocumentSnapshot mCompany;
+    private String mHarga;
+    private String mRuang;
     private String mDate;
     private String mTime;
     private DocumentSnapshot mUser;
 
-    Order(DocumentSnapshot company, String date, String time, DocumentSnapshot user){
-        mCompany = company;
+    Order(String ruang, String harga, String date, String time, DocumentSnapshot user){
+        mRuang = ruang;
+        mHarga = harga;
         mDate = date;
         mTime = time;
         mUser = user;
@@ -23,8 +25,12 @@ public class Order {
         return mTime;
     }
 
-    public DocumentSnapshot getCompany() {
-        return mCompany;
+    public String getHarga() {
+        return mHarga;
+    }
+
+    public String getRuang() {
+        return mRuang;
     }
 
     public DocumentSnapshot getUser() {

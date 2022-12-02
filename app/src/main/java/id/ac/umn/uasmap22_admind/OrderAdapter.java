@@ -47,14 +47,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     public void onBindViewHolder(@NonNull OrderAdapter.OrderViewHolder holder, int position) {
         //Masukin data ke view holder
         Order mCurrent = mOrder.get(position);
-        DocumentSnapshot companyOrder = mCurrent.getCompany();
+        String ruangOrder = mCurrent.getRuang();
+        String hargaOrder = mCurrent.getHarga();
         String dateOrder = mCurrent.getDate();
         String timeOrder = mCurrent.getTime();
         DocumentSnapshot userOrder = mCurrent.getUser();
-        holder.ruanganItemView.setText(companyOrder.get("nama").toString());
+        holder.ruanganItemView.setText(ruangOrder);
         holder.dateItemView.setText(dateOrder);
         holder.timeItemView.setText(timeOrder);
-        holder.hargaItemView.setText(companyOrder.get("harga").toString());
+        holder.hargaItemView.setText(hargaOrder);
         holder.userItemView.setText(userOrder.get("nama").toString());
     }
 

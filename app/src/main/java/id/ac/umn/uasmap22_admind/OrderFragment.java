@@ -20,6 +20,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -78,7 +79,8 @@ public class OrderFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         if (user != null) {
-            getOrder();
+            String uid = user.getUid();
+            getOrder(uid);
         } else {
             // No user is signed in
         }
@@ -88,13 +90,12 @@ public class OrderFragment extends Fragment {
     private final LinkedList<Order> mOrder = new LinkedList<>();
     private RecyclerView mRecyclerView;
     private OrderAdapter mAdapter;
-    private DocumentSnapshot docCompany;
     private DocumentSnapshot docUser;
 
-    public void getOrder() {
+    public void getOrder(String uid) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference orderRef = db
-                .collection("order");
+        Query orderRef = db
+                .collection("order").whereEqualTo("company", uid);
 
         orderRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -102,31 +103,18 @@ public class OrderFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                String docRefCompany = document.get("company").toString();
-                                String docRefRuang = document.get("ruang").toString();
                                 String docRefUser = document.get("user").toString();
 
-                                CollectionReference ruangRef = db
-                                        .collection("partner").document(docRefCompany)
-                                        .collection("ruang");
-
-                                ruangRef.document(docRefRuang).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                db.collection("user").document(docRefUser).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        docCompany = task.getResult();
-                                        Log.d("cmplt", document.getId() + " => " + task.getResult().getString("nama"));
-                                        db.collection("user").document(docRefUser).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentSnapshot> taskUser) {
-                                                docUser = taskUser.getResult();
-                                                mOrder.add(new Order(docCompany, document.getString("date"),  document.getString("time"), docUser));
-                                                mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
-                                                mAdapter = new OrderAdapter(getContext(), mOrder);
-                                                mRecyclerView.setAdapter(mAdapter);
-                                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                                                Log.d("cmplt", document.getId() + " => " + taskUser.getResult().getString("nama"));
-                                            }
-                                        });
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> taskUser) {
+                                        docUser = taskUser.getResult();
+                                        mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
+                                        mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
+                                        mAdapter = new OrderAdapter(getContext(), mOrder);
+                                        mRecyclerView.setAdapter(mAdapter);
+                                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                        Log.d("cmplt", document.getId() + " => " + taskUser.getResult().getString("nama"));
                                     }
                                 });
                             }
