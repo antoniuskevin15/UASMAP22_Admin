@@ -24,6 +24,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.LinkedList;
 
 /**
@@ -94,8 +96,12 @@ public class OrderFragment extends Fragment {
 
     public void getOrder(String uid) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String timeStamp = new SimpleDateFormat("dd MMMM yyyy").format(Calendar.getInstance().getTime());
+//        Query orderRef = db
+//                .collection("order").whereEqualTo("company", uid);
+        Log.d("DATE", timeStamp);
         Query orderRef = db
-                .collection("order").whereEqualTo("company", uid);
+                .collection("order").whereGreaterThanOrEqualTo("date", timeStamp);
 
         orderRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
