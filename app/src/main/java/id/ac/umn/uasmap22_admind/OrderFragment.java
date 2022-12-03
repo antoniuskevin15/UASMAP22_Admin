@@ -97,6 +97,8 @@ public class OrderFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private OrderAdapter mAdapter;
     private DocumentSnapshot docUser;
+    private String filterRuang = "Ruangan";
+    private String filterTanggal = "Tanggal";
 
     public void getOrder(String uid) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -108,6 +110,7 @@ public class OrderFragment extends Fragment {
                 .collection("order").whereGreaterThanOrEqualTo("date", timeStamp);
 
         ArrayList<String> spinnerArray = new ArrayList<String>();
+        ArrayList<String> spinnerArrayTanggal = new ArrayList<String>();
         CollectionReference ruangRef = db
                 .collection("partner").document(uid)
                 .collection("ruang");
@@ -120,6 +123,18 @@ public class OrderFragment extends Fragment {
                 });
             }
         });
+        db.collection("order").whereGreaterThanOrEqualTo("date", timeStamp).orderBy("date").get().addOnCompleteListener(datas -> {
+            if(datas.isSuccessful()){
+                spinnerArrayTanggal.add("Tanggal");
+                datas.getResult().forEach(data -> {
+                    if(spinnerArrayTanggal.contains(data.getString("date"))){
+
+                    }else{
+                        spinnerArrayTanggal.add(data.getString("date"));
+                    }
+                });
+            }
+        });
         orderRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -127,7 +142,6 @@ public class OrderFragment extends Fragment {
                         if (task.isSuccessful()) {
 
                             Spinner spinnerRuang = getView().findViewById(R.id.filter_ruang);
-//                            Spinner spinnerTanggal = getView().findViewById(R.id.filter_tanggal);
 
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, spinnerArray);
                             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -136,6 +150,7 @@ public class OrderFragment extends Fragment {
                                 @Override
                                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                     String text = adapterView.getItemAtPosition(i).toString();
+                                    filterRuang = text;
                                     mOrder.clear();
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         String docRefUser = document.get("user").toString();
@@ -173,21 +188,26 @@ public class OrderFragment extends Fragment {
                                 }
                             });
 
+                            Spinner spinnerTanggal = getView().findViewById(R.id.filter_tanggal);
+
+                            ArrayAdapter<String> adapterTanggal = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, spinnerArrayTanggal);
+                            adapterTanggal.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerTanggal.setAdapter(adapterTanggal);
+                            spinnerTanggal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                    String text = adapterView.getItemAtPosition(i).toString();
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                }
+                            });
+
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());
                         }
-//        spinnerTutup.setAdapter(adapter);
-//        spinnerTutup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                String text = adapterView.getItemAtPosition(i).toString();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
                     }
                 });
     }
