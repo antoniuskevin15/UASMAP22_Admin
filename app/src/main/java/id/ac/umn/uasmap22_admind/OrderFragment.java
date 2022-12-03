@@ -149,8 +149,7 @@ public class OrderFragment extends Fragment {
                             spinnerRuang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                    String text = adapterView.getItemAtPosition(i).toString();
-                                    filterRuang = text;
+                                    filterRuang = adapterView.getItemAtPosition(i).toString();
                                     mOrder.clear();
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         String docRefUser = document.get("user").toString();
@@ -159,21 +158,41 @@ public class OrderFragment extends Fragment {
                                             @Override
                                             public void onComplete(@NonNull Task<DocumentSnapshot> taskUser) {
                                                 docUser = taskUser.getResult();
-                                                if(text.equals("Ruangan")){
-                                                    if(document.getString("company").equals(uid)){
-                                                        mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
-                                                        mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
-                                                        mAdapter = new OrderAdapter(getContext(), mOrder);
-                                                        mRecyclerView.setAdapter(mAdapter);
-                                                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                if(filterTanggal.equals("Tanggal")){
+                                                    if(filterRuang.equals("Ruangan")){
+                                                        if(document.getString("company").equals(uid)){
+                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
+                                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
+                                                            mAdapter = new OrderAdapter(getContext(), mOrder);
+                                                            mRecyclerView.setAdapter(mAdapter);
+                                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                        }
+                                                    }else{
+                                                        if(document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang)){
+                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
+                                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
+                                                            mAdapter = new OrderAdapter(getContext(), mOrder);
+                                                            mRecyclerView.setAdapter(mAdapter);
+                                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                        }
                                                     }
-                                                }else{
-                                                    if(document.getString("company").equals(uid) && document.getString("ruang").equals(text)){
-                                                        mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
-                                                        mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
-                                                        mAdapter = new OrderAdapter(getContext(), mOrder);
-                                                        mRecyclerView.setAdapter(mAdapter);
-                                                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                }else {
+                                                    if (filterRuang.equals("Ruangan")) {
+                                                        if (document.getString("company").equals(uid) && document.getString("date").equals(filterTanggal)) {
+                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), docUser));
+                                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
+                                                            mAdapter = new OrderAdapter(getContext(), mOrder);
+                                                            mRecyclerView.setAdapter(mAdapter);
+                                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                        }
+                                                    } else {
+                                                        if (document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang) && document.getString("date").equals(filterTanggal)) {
+                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), docUser));
+                                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
+                                                            mAdapter = new OrderAdapter(getContext(), mOrder);
+                                                            mRecyclerView.setAdapter(mAdapter);
+                                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                        }
                                                     }
                                                 }
                                                 Log.d("cmplt", document.getId() + " => " + taskUser.getResult().getString("nama"));
@@ -196,7 +215,58 @@ public class OrderFragment extends Fragment {
                             spinnerTanggal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                    String text = adapterView.getItemAtPosition(i).toString();
+                                    filterTanggal = adapterView.getItemAtPosition(i).toString();
+                                    mOrder.clear();
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        String docRefUser = document.get("user").toString();
+
+                                        db.collection("user").document(docRefUser).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> taskUser) {
+                                                docUser = taskUser.getResult();
+                                                if(filterTanggal.equals("Tanggal")){
+                                                    if(filterRuang.equals("Ruangan")){
+                                                        if(document.getString("company").equals(uid)){
+                                                            if(mOrder.size() == 0){
+                                                                mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
+                                                                mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
+                                                                mAdapter = new OrderAdapter(getContext(), mOrder);
+                                                                mRecyclerView.setAdapter(mAdapter);
+                                                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                            }
+                                                        }
+                                                    }else{
+                                                        if(document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang)){
+                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
+                                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
+                                                            mAdapter = new OrderAdapter(getContext(), mOrder);
+                                                            mRecyclerView.setAdapter(mAdapter);
+                                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                        }
+                                                    }
+                                                }else {
+                                                    if (filterRuang.equals("Ruangan")) {
+                                                        if (document.getString("company").equals(uid) && document.getString("date").equals(filterTanggal)) {
+                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), docUser));
+                                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
+                                                            mAdapter = new OrderAdapter(getContext(), mOrder);
+                                                            mRecyclerView.setAdapter(mAdapter);
+                                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                        }
+                                                    } else {
+                                                        if (document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang) && document.getString("date").equals(filterTanggal)) {
+                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), docUser));
+                                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
+                                                            mAdapter = new OrderAdapter(getContext(), mOrder);
+                                                            mRecyclerView.setAdapter(mAdapter);
+                                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                        }
+                                                    }
+                                                }
+                                                Log.d("cmplt", document.getId() + " => " + taskUser.getResult().getString("nama"));
+                                            }
+                                        });
+                                    }
                                 }
 
                                 @Override
