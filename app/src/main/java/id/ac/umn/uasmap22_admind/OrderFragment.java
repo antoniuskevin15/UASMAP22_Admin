@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +28,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 
@@ -103,6 +107,18 @@ public class OrderFragment extends Fragment {
         Query orderRef = db
                 .collection("order").whereGreaterThanOrEqualTo("date", timeStamp);
 
+        ArrayList<String> spinnerArray = new ArrayList<String>();
+        CollectionReference ruangRef = db
+                .collection("partner").document(uid)
+                .collection("ruang");
+
+        ruangRef.get().addOnCompleteListener(datas -> {
+            if(datas.isSuccessful()){
+                datas.getResult().forEach(data -> {
+                    spinnerArray.add(data.getString("nama"));
+                });
+            }
+        });
         orderRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -126,6 +142,36 @@ public class OrderFragment extends Fragment {
                                     }
                                 });
                             }
+
+                            Spinner spinnerRuang = getView().findViewById(R.id.filter_ruang);
+//                            Spinner spinnerTanggal = getView().findViewById(R.id.filter_tanggal);
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, spinnerArray);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerRuang.setAdapter(adapter);
+                            spinnerRuang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                    String text = adapterView.getItemAtPosition(i).toString();
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                }
+                            });
+//        spinnerTutup.setAdapter(adapter);
+//        spinnerTutup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                String text = adapterView.getItemAtPosition(i).toString();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());
                         }

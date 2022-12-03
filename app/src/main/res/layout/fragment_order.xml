@@ -31,20 +31,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp">
 
-                <TextView
+                <Spinner
                     android:id="@+id/filter_ruang"
                     android:layout_width="120dp"
                     android:layout_height="30dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/filter_tanggal"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@drawable/rounded_input"
                     android:gravity="center"
                     android:text="Ruangan"
                     android:textSize="16sp"
                     android:backgroundTint="@color/white"
                     android:drawableEnd="@drawable/dropdown"
-                    android:drawablePadding="5dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/filter_tanggal"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    android:drawablePadding="5dp">
+                </Spinner>
 
                 <TextView
                     android:id="@+id/filter_tanggal"

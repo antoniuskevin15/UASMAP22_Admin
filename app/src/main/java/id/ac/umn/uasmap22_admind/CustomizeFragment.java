@@ -146,11 +146,19 @@ public class CustomizeFragment extends Fragment {
                         });
 
                         Spinner spinner = getView().findViewById(R.id.customize_hariBuka);
+                        String hariBuka = document.getString("hariBuka");
+                        String[] hariArray = getResources().getStringArray(R.array.hari_array);
                         Spinner spinnerTutup = getView().findViewById(R.id.customize_hariTutup);
+                        String hariTutup = document.getString("hariTutup");
 
                         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.hari_array, android.R.layout.simple_spinner_item);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinner.setAdapter(adapter);
+                        for(int i=0; i<7; i++){
+                            if(hariBuka.equals(hariArray[i])){
+                                spinner.setSelection(i);
+                            }
+                        }
                         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -163,6 +171,11 @@ public class CustomizeFragment extends Fragment {
                             }
                         });
                         spinnerTutup.setAdapter(adapter);
+                        for(int i=0; i<7; i++){
+                            if(hariTutup.equals(hariArray[i])){
+                                spinnerTutup.setSelection(i);
+                            }
+                        }
                         spinnerTutup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
