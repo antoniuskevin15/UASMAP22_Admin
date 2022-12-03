@@ -114,6 +114,7 @@ public class OrderFragment extends Fragment {
 
         ruangRef.get().addOnCompleteListener(datas -> {
             if(datas.isSuccessful()){
+                spinnerArray.add("Ruangan");
                 datas.getResult().forEach(data -> {
                     spinnerArray.add(data.getString("nama"));
                 });
@@ -124,24 +125,6 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                String docRefUser = document.get("user").toString();
-
-                                db.collection("user").document(docRefUser).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> taskUser) {
-                                        docUser = taskUser.getResult();
-                                        if(document.getString("company").equals(uid)){
-                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
-                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
-                                            mAdapter = new OrderAdapter(getContext(), mOrder);
-                                            mRecyclerView.setAdapter(mAdapter);
-                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                                        }
-                                        Log.d("cmplt", document.getId() + " => " + taskUser.getResult().getString("nama"));
-                                    }
-                                });
-                            }
 
                             Spinner spinnerRuang = getView().findViewById(R.id.filter_ruang);
 //                            Spinner spinnerTanggal = getView().findViewById(R.id.filter_tanggal);
@@ -153,6 +136,35 @@ public class OrderFragment extends Fragment {
                                 @Override
                                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                     String text = adapterView.getItemAtPosition(i).toString();
+                                    mOrder.clear();
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        String docRefUser = document.get("user").toString();
+
+                                        db.collection("user").document(docRefUser).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> taskUser) {
+                                                docUser = taskUser.getResult();
+                                                if(text.equals("Ruangan")){
+                                                    if(document.getString("company").equals(uid)){
+                                                        mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
+                                                        mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
+                                                        mAdapter = new OrderAdapter(getContext(), mOrder);
+                                                        mRecyclerView.setAdapter(mAdapter);
+                                                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                    }
+                                                }else{
+                                                    if(document.getString("company").equals(uid) && document.getString("ruang").equals(text)){
+                                                        mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
+                                                        mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
+                                                        mAdapter = new OrderAdapter(getContext(), mOrder);
+                                                        mRecyclerView.setAdapter(mAdapter);
+                                                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                    }
+                                                }
+                                                Log.d("cmplt", document.getId() + " => " + taskUser.getResult().getString("nama"));
+                                            }
+                                        });
+                                    }
                                 }
 
                                 @Override
@@ -160,6 +172,10 @@ public class OrderFragment extends Fragment {
 
                                 }
                             });
+
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
 //        spinnerTutup.setAdapter(adapter);
 //        spinnerTutup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
@@ -172,9 +188,6 @@ public class OrderFragment extends Fragment {
 //
 //            }
 //        });
-                        } else {
-                            Log.d("TAG", "Error getting documents: ", task.getException());
-                        }
                     }
                 });
     }
