@@ -115,11 +115,13 @@ public class OrderFragment extends Fragment {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> taskUser) {
                                         docUser = taskUser.getResult();
-                                        mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
-                                        mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
-                                        mAdapter = new OrderAdapter(getContext(), mOrder);
-                                        mRecyclerView.setAdapter(mAdapter);
-                                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                        if(document.getString("company").equals(uid)){
+                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
+                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.order_recycler);
+                                            mAdapter = new OrderAdapter(getContext(), mOrder);
+                                            mRecyclerView.setAdapter(mAdapter);
+                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                        }
                                         Log.d("cmplt", document.getId() + " => " + taskUser.getResult().getString("nama"));
                                     }
                                 });
