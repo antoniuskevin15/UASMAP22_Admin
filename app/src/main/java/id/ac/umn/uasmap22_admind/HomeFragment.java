@@ -79,6 +79,8 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    public int income = 0;
+
     public void getUser(String uid){
 
         db.collection("order").whereEqualTo("company", uid).count().get(AggregateSource.SERVER).addOnCompleteListener(tasks -> {
@@ -91,5 +93,18 @@ public class HomeFragment extends Fragment {
                 Log.d("TAG", "Count failed: ", tasks.getException());
             }
         });;
+
+        db.collection("order").whereEqualTo("company", uid).get().addOnCompleteListener(values -> {
+            if(values.isSuccessful()){
+                values.getResult().forEach(value -> {
+                    income += Integer.valueOf(value.get("harga").toString());
+                });
+
+                TextView tv_income = (TextView) getView().findViewById(R.id.home_income);
+                tv_income.setText(""+income);
+            }else{
+                Log.d("TAG", "Sum failed: ", values.getException());
+            }
+        });
     }
 }
