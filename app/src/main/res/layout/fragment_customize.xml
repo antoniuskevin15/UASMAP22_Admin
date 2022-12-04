@@ -39,7 +39,7 @@
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/custom_et_jumlahLap"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"

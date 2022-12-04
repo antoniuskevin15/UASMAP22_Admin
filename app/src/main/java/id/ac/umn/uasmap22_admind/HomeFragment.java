@@ -4,9 +4,17 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.AggregateQuerySnapshot;
+import com.google.firebase.firestore.AggregateSource;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +22,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +68,28 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        if (user != null) {
+            String uid = user.getUid();
+            getUser(uid);
+        } else {
+            // No user is signed in
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return view;
+    }
+
+    public void getUser(String uid){
+
+        db.collection("order").whereEqualTo("company", uid).count().get(AggregateSource.SERVER).addOnCompleteListener(tasks -> {
+            if (tasks.isSuccessful()) {
+                AggregateQuerySnapshot snapshot = tasks.getResult();
+                TextView tv_jumlah = (TextView) getView().findViewById(R.id.home_valueRented);
+                tv_jumlah.setText(""+snapshot.getCount());
+                Log.d("TAG", "Count: " + snapshot.getCount());
+            } else {
+                Log.d("TAG", "Count failed: ", tasks.getException());
+            }
+        });;
     }
 }

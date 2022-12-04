@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -237,6 +238,7 @@ public class CustomizeFragment extends Fragment {
                             }
                         });
 
+
                         TextView btnSave = (TextView) getView().findViewById(R.id.customize_save);
                         btnSave.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -244,7 +246,7 @@ public class CustomizeFragment extends Fragment {
                                 Map<String, Object> partner = new HashMap<>();
 //
                                 if(TextUtils.isEmpty(spinner.getSelectedItem().toString()) || TextUtils.isEmpty(spinnerTutup.getSelectedItem().toString()) || TextUtils.isEmpty(et_jamBuka.getText()) || TextUtils.isEmpty(et_jamTutup.getText())) {
-                                    Toast.makeText(getContext(), "Masih ada imput yang kosong!!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Masih ada input yang kosong!!", Toast.LENGTH_SHORT).show();
                                 }else{
                                     partner.put("hariBuka", spinner.getSelectedItem().toString());
                                     partner.put("jamBuka", et_jamBuka.getText().toString());

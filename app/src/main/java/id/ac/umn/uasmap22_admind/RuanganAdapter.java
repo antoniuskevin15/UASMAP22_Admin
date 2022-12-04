@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class RuanganAdapter extends RecyclerView.Adapter<RuanganAdapter.RuanganViewHolder>{
     private final LinkedList<Ruangan> mRuangan;
@@ -60,6 +62,8 @@ public class RuanganAdapter extends RecyclerView.Adapter<RuanganAdapter.RuanganV
         return mRuangan.size();
     }
 
+    Map<String, Object> ruang = new HashMap<>();
+
     class RuanganViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public final EditText namaItemView;
         public final EditText hargaItemView;
@@ -69,15 +73,22 @@ public class RuanganAdapter extends RecyclerView.Adapter<RuanganAdapter.RuanganV
             super(itemView);
             namaItemView = itemView.findViewById(R.id.customize_ruangan);
             hargaItemView = itemView.findViewById(R.id.customize_harga);
+            ruang.put(namaItemView.getText().toString(), hargaItemView);
             this.mAdapter = adapter;
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(mContext, "PENCET!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, view.toString(), Toast.LENGTH_SHORT).show();
         }
 
+
+
+    }
+
+    public Map<String, Object> getRuang(){
+        return ruang;
     }
 
 
