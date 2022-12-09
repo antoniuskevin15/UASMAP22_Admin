@@ -1,5 +1,6 @@
 package id.ac.umn.uasmap22_admind;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,8 @@ public class ProfileFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private TextView logout;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,19 +67,30 @@ public class ProfileFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    public void logout() {
+        Log.i("LOGOUT", "MASUK FUNCTION LOGOUT");
+        FirebaseAuth.getInstance().signOut();
+        getActivity().finish();
+        startActivity(new Intent(getActivity(), MainActivity.class));
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        logout = view.findViewById(R.id.logout);
         if (user != null) {
             String uid = user.getUid();
             getUser(uid);
+            logout.setOnClickListener(v -> {
+                logout();
+            });
         } else {
             // No user is signed in
         }
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return view;
     }
 
     public void getUser(String uid){
