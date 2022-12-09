@@ -1,6 +1,9 @@
 package id.ac.umn.uasmap22_admind;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
@@ -57,6 +61,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.timeItemView.setText(timeOrder);
         holder.hargaItemView.setText("Rp. "+hargaOrder);
         holder.userItemView.setText(userOrder.getString("nama"));
+        holder.onClickListener(mCurrent);
     }
 
     @Override
@@ -85,7 +90,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(mContext, "PENCET!!", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mContext, "PENCET!!", Toast.LENGTH_SHORT).show()
+        }
+
+        public void onClickListener(Order order){
+            Intent approval = new Intent(mContext, ApproveActivity.class);
+            approval.putExtra("ORDER", (Serializable) order);
         }
 
     }

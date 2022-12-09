@@ -158,7 +158,7 @@ public class HistoryFragment extends Fragment {
                                                 if(filterTanggal.equals("Tanggal")){
                                                     if(filterRuang.equals("Ruangan")){
                                                         if(document.getString("company").equals(uid)){
-                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
+                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), document.getId(), document.getString("status"), docUser));
                                                             mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
                                                             mAdapter = new HistoryAdapter(getContext(), mOrder);
                                                             mRecyclerView.setAdapter(mAdapter);
@@ -166,7 +166,7 @@ public class HistoryFragment extends Fragment {
                                                         }
                                                     }else{
                                                         if(document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang)){
-                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
+                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), document.getId(), document.getString("status"), docUser));
                                                             mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
                                                             mAdapter = new HistoryAdapter(getContext(), mOrder);
                                                             mRecyclerView.setAdapter(mAdapter);
@@ -176,7 +176,7 @@ public class HistoryFragment extends Fragment {
                                                 }else {
                                                     if (filterRuang.equals("Ruangan")) {
                                                         if (document.getString("company").equals(uid) && document.getString("date").equals(filterTanggal)) {
-                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), docUser));
+                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
                                                             mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
                                                             mAdapter = new HistoryAdapter(getContext(), mOrder);
                                                             mRecyclerView.setAdapter(mAdapter);
@@ -184,7 +184,7 @@ public class HistoryFragment extends Fragment {
                                                         }
                                                     } else {
                                                         if (document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang) && document.getString("date").equals(filterTanggal)) {
-                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), docUser));
+                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
                                                             mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
                                                             mAdapter = new HistoryAdapter(getContext(), mOrder);
                                                             mRecyclerView.setAdapter(mAdapter);
@@ -225,7 +225,7 @@ public class HistoryFragment extends Fragment {
                                                     if(filterRuang.equals("Ruangan")){
                                                         if(document.getString("company").equals(uid)){
                                                             if(mOrder.size() == 0){
-                                                                mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
+                                                                mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), document.getId(), document.getString("status"), docUser));
                                                                 mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
                                                                 mAdapter = new HistoryAdapter(getContext(), mOrder);
                                                                 mRecyclerView.setAdapter(mAdapter);
@@ -234,7 +234,7 @@ public class HistoryFragment extends Fragment {
                                                         }
                                                     }else{
                                                         if(document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang)){
-                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), docUser));
+                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), document.getId(), document.getString("status"), docUser));
                                                             mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
                                                             mAdapter = new HistoryAdapter(getContext(), mOrder);
                                                             mRecyclerView.setAdapter(mAdapter);
@@ -244,7 +244,7 @@ public class HistoryFragment extends Fragment {
                                                 }else {
                                                     if (filterRuang.equals("Ruangan")) {
                                                         if (document.getString("company").equals(uid) && document.getString("date").equals(filterTanggal)) {
-                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), docUser));
+                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
                                                             mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
                                                             mAdapter = new HistoryAdapter(getContext(), mOrder);
                                                             mRecyclerView.setAdapter(mAdapter);
@@ -252,7 +252,7 @@ public class HistoryFragment extends Fragment {
                                                         }
                                                     } else {
                                                         if (document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang) && document.getString("date").equals(filterTanggal)) {
-                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), docUser));
+                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
                                                             mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
                                                             mAdapter = new HistoryAdapter(getContext(), mOrder);
                                                             mRecyclerView.setAdapter(mAdapter);

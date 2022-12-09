@@ -85,7 +85,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(mContext, "PENCET!!", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mContext, "PENCET!!", Toast.LENGTH_SHORT).show();
         }
 
     }
