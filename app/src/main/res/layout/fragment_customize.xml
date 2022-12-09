@@ -44,6 +44,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
+                        android:text="3"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:gravity="center_vertical"
                         android:background="@drawable/rounded_input"
                         android:backgroundTint="@color/rose"
                         android:inputType="number" />

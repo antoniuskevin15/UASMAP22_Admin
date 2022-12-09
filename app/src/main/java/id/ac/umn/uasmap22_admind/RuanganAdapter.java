@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -65,8 +67,8 @@ public class RuanganAdapter extends RecyclerView.Adapter<RuanganAdapter.RuanganV
     Map<String, Object> ruang = new HashMap<>();
 
     class RuanganViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public final EditText namaItemView;
-        public final EditText hargaItemView;
+        public final TextView namaItemView;
+        public final TextView hargaItemView;
         final RuanganAdapter mAdapter;
 
         public RuanganViewHolder(@NonNull View itemView, RuanganAdapter adapter,onItemClickListener listener) {
@@ -80,7 +82,7 @@ public class RuanganAdapter extends RecyclerView.Adapter<RuanganAdapter.RuanganV
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(mContext, view.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Hubungi CS RentBow untuk mengubah harga ruangan", Toast.LENGTH_SHORT).show();
         }
 
 
