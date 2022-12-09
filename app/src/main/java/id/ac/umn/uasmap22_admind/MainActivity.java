@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+
+        firebaseUser = mAuth.getCurrentUser();
 
         EditText email = (EditText) findViewById(R.id.et_email);
         EditText password = (EditText) findViewById(R.id.et_password);
@@ -70,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                             out();
-                            Intent intentHome = new Intent(MainActivity.this, HomeActivity.class);
-                            startActivity(intentHome);
+
                         } else {
                             // If sign in fails, display a message to the user.
 //                            Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -84,7 +86,10 @@ public class MainActivity extends AppCompatActivity {
         // [END sign_in_with_email]
     }
 
-    private void reload() { }
+    private void reload() {
+        Intent intentHome = new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(intentHome);
+    }
 
     private void updateUI(FirebaseUser user) {
     }

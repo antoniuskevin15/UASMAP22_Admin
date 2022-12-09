@@ -56,7 +56,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         holder.dateItemView.setText(dateOrder);
         holder.timeItemView.setText(timeOrder);
         holder.hargaItemView.setText("Rp. "+hargaOrder);
-        holder.userItemView.setText(userOrder.get("nama").toString());
+        holder.userItemView.setText(userOrder.getString("nama"));
     }
 
     @Override

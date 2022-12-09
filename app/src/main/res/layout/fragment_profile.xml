@@ -148,8 +148,24 @@
                         android:layout_weight="70"
                         android:textColor="@color/primary" />
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/logout"
+                    android:layout_gravity="center"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:text="Logout"
+                    android:paddingVertical="5dp"
+                    android:drawableStart="@drawable/ic_twotone_close_24"
+                    android:drawableTint="@color/white"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:layout_marginVertical="20dp"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@color/danger">
+                </TextView>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
     </ScrollView>
 
 </FrameLayout>
