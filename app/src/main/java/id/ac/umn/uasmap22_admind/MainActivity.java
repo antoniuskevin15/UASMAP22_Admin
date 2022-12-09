@@ -31,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
         firebaseUser = mAuth.getCurrentUser();
 
         EditText email = (EditText) findViewById(R.id.et_email);

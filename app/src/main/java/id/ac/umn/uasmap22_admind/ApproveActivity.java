@@ -32,6 +32,9 @@ public class ApproveActivity extends AppCompatActivity {
         Order currOrder = (Order) curr.getSerializableExtra("ORDER");
         String id = currOrder.getId();
         DocumentReference docRef = db.collection("order").document(id);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
