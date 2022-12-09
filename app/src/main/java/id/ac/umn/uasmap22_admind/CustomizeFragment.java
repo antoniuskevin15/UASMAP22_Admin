@@ -209,8 +209,15 @@ public class CustomizeFragment extends Fragment {
                                             @Override
                                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                                   int minute) {
-
-                                                et_jamBuka.setText(hourOfDay + ":" + minute);
+                                                String minute_string = ""+minute;
+                                                String hour_string = ""+hourOfDay;
+                                                if(hourOfDay<10){
+                                                    hour_string = "0"+hourOfDay;
+                                                }
+                                                if(minute<10){
+                                                    minute_string = "0"+minute;
+                                                }
+                                                et_jamBuka.setText(hour_string + ":" + minute_string);
                                             }
                                         }, mHour, mMinute, false);
                                 timePickerDialog.show();
@@ -230,8 +237,15 @@ public class CustomizeFragment extends Fragment {
                                             @Override
                                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                                   int minute) {
-
-                                                et_jamTutup.setText(hourOfDay + ":" + minute);
+                                                String minute_string = ""+minute;
+                                                String hour_string = ""+hourOfDay;
+                                                if(hourOfDay<10){
+                                                    hour_string = "0"+hourOfDay;
+                                                }
+                                                if(minute<10){
+                                                    minute_string = "0"+minute;
+                                                }
+                                                et_jamTutup.setText(hour_string + ":" + minute_string);
                                             }
                                         }, mHour, mMinute, false);
                                 timePickerDialog.show();
@@ -259,6 +273,7 @@ public class CustomizeFragment extends Fragment {
                                     partner.put("phone", document.getString("phone"));
                                     partner.put("photoName", document.getString("photoName"));
                                     partner.put("photoURL", document.getString("photoURL"));
+                                    partner.put("harga", document.getString("harga"));
 
                                     db.collection("partner").document(uid)
                                             .set(partner)

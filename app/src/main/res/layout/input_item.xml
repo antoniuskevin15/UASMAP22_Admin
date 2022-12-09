@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-        <EditText
+        <TextView
             android:id="@+id/customize_ruangan"
             android:layout_width="100dp"
             android:layout_height="50dp"
@@ -12,13 +12,19 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_input"
             android:backgroundTint="@color/rose"
-            android:text="Lap B" />
-        <EditText
+            android:text="Lap B"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/black" />
+        <TextView
             android:id="@+id/customize_harga"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_marginHorizontal="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_input"
-            android:backgroundTint="@color/rose"/>
+            android:backgroundTint="@color/rose"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
 </LinearLayout>
