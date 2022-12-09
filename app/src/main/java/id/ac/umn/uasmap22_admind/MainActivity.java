@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         if(getSupportActionBar() != null){
             getSupportActionBar().hide();
         }
-        
         firebaseUser = mAuth.getCurrentUser();
 
         EditText email = (EditText) findViewById(R.id.et_email);
