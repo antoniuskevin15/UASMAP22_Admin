@@ -1,10 +1,12 @@
 package id.ac.umn.uasmap22_admind;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import id.ac.umn.uasmap22_admind.databinding.ActivityHomeBinding;
@@ -17,6 +19,13 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        if(getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
         setContentView(binding.getRoot());
 
         if (getSupportActionBar() != null) {

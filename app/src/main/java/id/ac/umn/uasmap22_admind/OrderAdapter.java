@@ -2,16 +2,20 @@ package id.ac.umn.uasmap22_admind;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -55,13 +59,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         String hargaOrder = mCurrent.getHarga();
         String dateOrder = mCurrent.getDate();
         String timeOrder = mCurrent.getTime();
+        String statusOrder = mCurrent.getStatus();
         DocumentSnapshot userOrder = mCurrent.getUser();
         holder.ruanganItemView.setText(ruangOrder);
         holder.dateItemView.setText(dateOrder);
         holder.timeItemView.setText(timeOrder);
         holder.hargaItemView.setText("Rp. "+hargaOrder);
         holder.userItemView.setText(userOrder.getString("nama"));
-        holder.onClickListener(mCurrent);
+        holder.statusItemView.setText(statusOrder);
+        if(statusOrder.equalsIgnoreCase("pending")){
+            holder.statusItemView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.primary)));
+        }else if(statusOrder.equalsIgnoreCase("approved")){
+            holder.statusItemView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.success)));
+        }else if(statusOrder.equalsIgnoreCase("declined")){
+            holder.statusItemView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.danger)));
+        }
+
     }
 
     @Override
@@ -75,6 +88,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         public final TextView timeItemView;
         public final TextView hargaItemView;
         public final TextView userItemView;
+        public final TextView statusItemView;
         final OrderAdapter mAdapter;
 
         public OrderViewHolder(@NonNull View itemView, OrderAdapter adapter,onItemClickListener listener) {
@@ -84,18 +98,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             dateItemView = itemView.findViewById(R.id.order_date);
             timeItemView = itemView.findViewById(R.id.order_time);
             userItemView = itemView.findViewById(R.id.order_user);
+            statusItemView = itemView.findViewById(R.id.order_status);
             this.mAdapter = adapter;
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-//            Toast.makeText(mContext, "PENCET!!", Toast.LENGTH_SHORT).show()
-        }
-
-        public void onClickListener(Order order){
+//            Toast.makeText(mContext, "PENCET!!", Toast.LENGTH_SHORT).show();
+            Order order = mOrder.get(getAdapterPosition());
+            Log.d("ORDER", order.getRuang());
+            String orderID = order.getId();
             Intent approval = new Intent(mContext, ApproveActivity.class);
-            approval.putExtra("ORDER", (Serializable) order);
+            approval.putExtra("ORDER-ID", orderID);
+//            approval.putExtra("ORDER", order);
+            mContext.startActivity(approval);
         }
 
     }

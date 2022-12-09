@@ -1,7 +1,9 @@
 package id.ac.umn.uasmap22_admind;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -16,6 +18,13 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        if(getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         if(getSupportActionBar() != null){
             getSupportActionBar().hide();

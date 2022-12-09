@@ -195,10 +195,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgBukti">
@@ -207,32 +208,31 @@
                 android:id="@+id/approveBtn"
                 android:layout_width="170dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginVertical="20dp"
+                android:layout_marginHorizontal="10dp"
                 android:background="@drawable/rounded_input"
                 android:backgroundTint="@color/success2"
                 android:gravity="center"
                 android:text="Approve"
                 android:textColor="@color/white"
                 android:textSize="25dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/declineBtn"
                 android:layout_width="170dp"
                 android:layout_height="60dp"
-                android:layout_margin="20dp"
+                android:layout_marginVertical="20dp"
+                android:layout_marginHorizontal="10dp"
                 android:background="@drawable/rounded_input"
                 android:backgroundTint="@color/danger"
                 android:gravity="center"
                 android:text="Decline"
                 android:textColor="@color/white"
                 android:textSize="25dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/approveBtn" />
+                android:textStyle="bold" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
