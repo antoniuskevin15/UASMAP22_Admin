@@ -97,6 +97,7 @@ public class HomeFragment extends Fragment {
         db.collection("order").whereEqualTo("company", uid).get().addOnCompleteListener(values -> {
             if(values.isSuccessful()){
                 values.getResult().forEach(value -> {
+                    Log.d("harga", value.get("harga").toString());
                     income += Integer.valueOf(value.get("harga").toString());
                 });
 

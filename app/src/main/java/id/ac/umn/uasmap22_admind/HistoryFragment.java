@@ -137,140 +137,142 @@ public class HistoryFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            if(task.getResult() != null) {
 
-                            Spinner spinnerRuang = getView().findViewById(R.id.filter_ruang);
+                                Spinner spinnerRuang = getView().findViewById(R.id.filter_ruang);
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, spinnerArray);
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            spinnerRuang.setAdapter(adapter);
-                            spinnerRuang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                    filterRuang = adapterView.getItemAtPosition(i).toString();
-                                    mOrder.clear();
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        String docRefUser = document.get("user").toString();
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, spinnerArray);
+                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spinnerRuang.setAdapter(adapter);
+                                spinnerRuang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        filterRuang = adapterView.getItemAtPosition(i).toString();
+                                        mOrder.clear();
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            String docRefUser = document.get("user").toString();
 
-                                        db.collection("user").document(docRefUser).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentSnapshot> taskUser) {
-                                                docUser = taskUser.getResult();
-                                                if(filterTanggal.equals("Tanggal")){
-                                                    if(filterRuang.equals("Ruangan")){
-                                                        if(document.getString("company").equals(uid)){
-                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), document.getId(), document.getString("status"), docUser));
-                                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
-                                                            mAdapter = new HistoryAdapter(getContext(), mOrder);
-                                                            mRecyclerView.setAdapter(mAdapter);
-                                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                                                        }
-                                                    }else{
-                                                        if(document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang)){
-                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), document.getId(), document.getString("status"), docUser));
-                                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
-                                                            mAdapter = new HistoryAdapter(getContext(), mOrder);
-                                                            mRecyclerView.setAdapter(mAdapter);
-                                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                                                        }
-                                                    }
-                                                }else {
-                                                    if (filterRuang.equals("Ruangan")) {
-                                                        if (document.getString("company").equals(uid) && document.getString("date").equals(filterTanggal)) {
-                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
-                                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
-                                                            mAdapter = new HistoryAdapter(getContext(), mOrder);
-                                                            mRecyclerView.setAdapter(mAdapter);
-                                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                                                        }
-                                                    } else {
-                                                        if (document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang) && document.getString("date").equals(filterTanggal)) {
-                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
-                                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
-                                                            mAdapter = new HistoryAdapter(getContext(), mOrder);
-                                                            mRecyclerView.setAdapter(mAdapter);
-                                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                                                        }
-                                                    }
-                                                }
-                                                Log.d("cmplt", document.getId() + " => " + taskUser.getResult().getString("nama"));
-                                            }
-                                        });
-                                    }
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                                }
-                            });
-
-                            Spinner spinnerTanggal = getView().findViewById(R.id.filter_tanggal);
-
-                            ArrayAdapter<String> adapterTanggal = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, spinnerArrayTanggal);
-                            adapterTanggal.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            spinnerTanggal.setAdapter(adapterTanggal);
-                            spinnerTanggal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                    filterTanggal = adapterView.getItemAtPosition(i).toString();
-                                    mOrder.clear();
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        String docRefUser = document.get("user").toString();
-
-                                        db.collection("user").document(docRefUser).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentSnapshot> taskUser) {
-                                                docUser = taskUser.getResult();
-                                                if(filterTanggal.equals("Tanggal")){
-                                                    if(filterRuang.equals("Ruangan")){
-                                                        if(document.getString("company").equals(uid)){
-                                                            if(mOrder.size() == 0){
-                                                                mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), document.getId(), document.getString("status"), docUser));
+                                            db.collection("user").document(docRefUser).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> taskUser) {
+                                                    docUser = taskUser.getResult();
+                                                    if (filterTanggal.equals("Tanggal")) {
+                                                        if (filterRuang.equals("Ruangan")) {
+                                                            if (document.getString("company").equals(uid)) {
+                                                                mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
+                                                                mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
+                                                                mAdapter = new HistoryAdapter(getContext(), mOrder);
+                                                                mRecyclerView.setAdapter(mAdapter);
+                                                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                            }
+                                                        } else {
+                                                            if (document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang)) {
+                                                                mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
                                                                 mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
                                                                 mAdapter = new HistoryAdapter(getContext(), mOrder);
                                                                 mRecyclerView.setAdapter(mAdapter);
                                                                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                                                             }
                                                         }
-                                                    }else{
-                                                        if(document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang)){
-                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"),  document.getString("time"), document.getId(), document.getString("status"), docUser));
-                                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
-                                                            mAdapter = new HistoryAdapter(getContext(), mOrder);
-                                                            mRecyclerView.setAdapter(mAdapter);
-                                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                    } else {
+                                                        if (filterRuang.equals("Ruangan")) {
+                                                            if (document.getString("company").equals(uid) && document.getString("date").equals(filterTanggal)) {
+                                                                mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
+                                                                mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
+                                                                mAdapter = new HistoryAdapter(getContext(), mOrder);
+                                                                mRecyclerView.setAdapter(mAdapter);
+                                                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                            }
+                                                        } else {
+                                                            if (document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang) && document.getString("date").equals(filterTanggal)) {
+                                                                mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
+                                                                mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
+                                                                mAdapter = new HistoryAdapter(getContext(), mOrder);
+                                                                mRecyclerView.setAdapter(mAdapter);
+                                                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                            }
                                                         }
                                                     }
-                                                }else {
-                                                    if (filterRuang.equals("Ruangan")) {
-                                                        if (document.getString("company").equals(uid) && document.getString("date").equals(filterTanggal)) {
-                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
-                                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
-                                                            mAdapter = new HistoryAdapter(getContext(), mOrder);
-                                                            mRecyclerView.setAdapter(mAdapter);
-                                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                    Log.d("cmplt", document.getId() + " => " + taskUser.getResult().getString("nama"));
+                                                }
+                                            });
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                    }
+                                });
+
+                                Spinner spinnerTanggal = getView().findViewById(R.id.filter_tanggal);
+
+                                ArrayAdapter<String> adapterTanggal = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, spinnerArrayTanggal);
+                                adapterTanggal.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spinnerTanggal.setAdapter(adapterTanggal);
+                                spinnerTanggal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        filterTanggal = adapterView.getItemAtPosition(i).toString();
+                                        mOrder.clear();
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            String docRefUser = document.get("user").toString();
+
+                                            db.collection("user").document(docRefUser).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> taskUser) {
+                                                    docUser = taskUser.getResult();
+                                                    if (filterTanggal.equals("Tanggal")) {
+                                                        if (filterRuang.equals("Ruangan")) {
+                                                            if (document.getString("company").equals(uid)) {
+                                                                if (mOrder.size() == 0) {
+                                                                    mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
+                                                                    mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
+                                                                    mAdapter = new HistoryAdapter(getContext(), mOrder);
+                                                                    mRecyclerView.setAdapter(mAdapter);
+                                                                    mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                                }
+                                                            }
+                                                        } else {
+                                                            if (document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang)) {
+                                                                mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
+                                                                mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
+                                                                mAdapter = new HistoryAdapter(getContext(), mOrder);
+                                                                mRecyclerView.setAdapter(mAdapter);
+                                                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                            }
                                                         }
                                                     } else {
-                                                        if (document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang) && document.getString("date").equals(filterTanggal)) {
-                                                            mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
-                                                            mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
-                                                            mAdapter = new HistoryAdapter(getContext(), mOrder);
-                                                            mRecyclerView.setAdapter(mAdapter);
-                                                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                        if (filterRuang.equals("Ruangan")) {
+                                                            if (document.getString("company").equals(uid) && document.getString("date").equals(filterTanggal)) {
+                                                                mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
+                                                                mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
+                                                                mAdapter = new HistoryAdapter(getContext(), mOrder);
+                                                                mRecyclerView.setAdapter(mAdapter);
+                                                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                            }
+                                                        } else {
+                                                            if (document.getString("company").equals(uid) && document.getString("ruang").equals(filterRuang) && document.getString("date").equals(filterTanggal)) {
+                                                                mOrder.add(new Order(document.get("ruang").toString(), document.get("harga").toString(), document.getString("date"), document.getString("time"), document.getId(), document.getString("status"), docUser));
+                                                                mRecyclerView = (RecyclerView) getView().findViewById(R.id.history_recycler);
+                                                                mAdapter = new HistoryAdapter(getContext(), mOrder);
+                                                                mRecyclerView.setAdapter(mAdapter);
+                                                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                            }
                                                         }
                                                     }
+                                                    Log.d("cmplt", document.getId() + " => " + taskUser.getResult().getString("nama"));
                                                 }
-                                                Log.d("cmplt", document.getId() + " => " + taskUser.getResult().getString("nama"));
-                                            }
-                                        });
+                                            });
+                                        }
                                     }
-                                }
 
-                                @Override
-                                public void onNothingSelected(AdapterView<?> adapterView) {
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
 
-                                }
-                            });
+                                    }
+                                });
+                            }
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());
                         }

@@ -67,6 +67,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.hargaItemView.setText("Rp. "+hargaOrder);
         holder.userItemView.setText(userOrder.getString("nama"));
         holder.statusItemView.setText(statusOrder);
+        Log.d("ASD", statusOrder);
         if(statusOrder.equalsIgnoreCase("pending")){
             holder.statusItemView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.primary)));
         }else if(statusOrder.equalsIgnoreCase("approved")){
